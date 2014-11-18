@@ -10,10 +10,8 @@ require(ff); require(RMOA); require(ffbase); require(AUC); require(ROCR)
 load.ffdf("~/1 Statistics/157/PROJECT TEAM/merge")
 
 progress_train_data <- read.delim("~/1 Statistics/157/PROJECT TEAM/progress_train_data_R.txt", header=FALSE)
-colnames(progress_train_data)=c("Item","Pla","Cli","Imp")
 progress_train_data$CTR=progress_train_data$Cli/progress_train_data$Imp
-prog.p=progress_train_data[1:6,c(1,6)]; colnames(prog.p)=c("Pla","CTR.P")
-prog.d=progress_train_data[7:18,c(1,6)]; colnames(prog.d)=c("Dem","CTR.D")
+
 tu.data.small=training.w.userid[1:100000,]
 head(tu.data.small)
 tu.data.small[c(which(tu.data.small$Gender==1&tu.data.small$Age==1)),15]="M.1"
@@ -38,6 +36,11 @@ tu.data.small[c(which(tu.data.small$Depth==3&tu.data.small$Position==2)),16]="3.
 tu.data.small[c(which(tu.data.small$Depth==3&tu.data.small$Position==3)),16]="3.3"
 tu.data.small$Pla=tu.data.small[,16]
 
+colnames(progress_train_data)=c("Item","Pla","Cli","Imp","CTR")
+
+prog.p=progress_train_data[1:6,c("Item","CTR")]; colnames(prog.p)=c("Pla","CTR.P")
+prog.d=progress_train_data[7:18,c("Item","CTR")]; colnames(prog.d)=c("Dem","CTR.D")
+
 tuc.data.small=merge(tu.data.small,prog.p, by="Pla")
 tuc.data.small=merge(tuc.data.small,prog.d, by="Dem")
 
@@ -48,13 +51,13 @@ binary.tu.data.small=as.ffdf(factorise(binary.tu.data.small))
 binary.tu.data.datastream <- datastream_ffdf(data=binary.tu.data.small[1:90000,])
 
 
-######## SAME PROCEDURE
+######## SAME PROCEDURE, but subset data to small
 
 
 b.ctrl <- MOAoptions(model = "NaiveBayes")
 b.mymodel <- NaiveBayes(control=b.ctrl)
 
-trained.tuc <- trainMOA(model = b.mymodel, Click ~ Impression +AdID+Depth+Position+CTR.P+CTR.D,
+trained.tuc <- trainMOA(model = b.mymodel, Click ~ Impression +Depth+Position+CTR.P+CTR.D,
                       data = binary.tu.data.datastream, chunk=10000, trace=TRUE)
 
 v.set=binary.tu.data.small[-c(1:90000),]                   
