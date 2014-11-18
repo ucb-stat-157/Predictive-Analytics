@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #Team 11: Predictive Analytics
-#Author: Jessica Li 
+#Author: Jessica Li & David San Juan
 
 "Output Format: feature_value \t feature_name \t click \t impression"
 
