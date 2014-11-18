@@ -22,11 +22,13 @@ incorporate the Search Relevance Feature'''
 #description_data = description_data.split('\n')[1:-1]
 
 'User Demographic Feature'
-
+# Created a dictionary outside of the function so it would not have be
+# be repeatedly called upon
 user_lookup = {}
 for instance in user_data:
-        #Split instances into ID and user data
+        #Split instances into ID and user data 
         temp = instance.split()
+        #In the dictionary, key is userID and the gender and age are values
         user_lookup[temp[0]] = (int(temp[1]),int(temp[2]))
 
 def get_user_info(user_id):
@@ -76,7 +78,7 @@ def get_placement(depth, position):
     that is greater than the number of ads being impressed.
     EX: If depth = 2, ad can only either be in the position 1 or 2.
     """
-    #This is how we chose to identify and deonimnate the feature values
+    #This is how we chose to identify and denominate the feature values
     placement = {(1,1):'A',(2,1):'B',(2,2):'C',(3,1):'D',(3,2):'E',(3,3):'F'}
     #check to make sure there are valid inputs
     try:
