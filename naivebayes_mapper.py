@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 # TEAM 11: PREDICTIVE ANALYTICS
-# BY: MELANIE HAN ZHAO
+# AUTHOR: MELANIE HAN ZHAO
 
 # Starter code from "How to write a naive bayes algorithm on MapReduce" by Yannet Interian
 
 """
 Input format:
-FEATURE_NAME1 [tab] FEATURE_VALUE1 [tab] FEATURE_NAME2 [tab] FEATURE_VALUE2 [tab] ... [tab] CLICKS [tab] IMPRESSIONS
+FEATURE_VALUE1 [tab] FEATURE_NAME1 [tab] FEATURE_VALUE2 [tab] FEATURE_NAME2 [tab] ... [tab] CLICKS [tab] IMPRESSIONS
 ^ FEATURE_NAME and FEATURE_VALUE for every feature used
 
 Output format:
@@ -43,7 +43,7 @@ def read_probs():
         lines = f.readlines()
     for line in lines:
         line = line.strip()
-        feature, value, prob_click, prob_no_click = line.split()
+        feature, value, prob_click, prob_no_click = line.split('\t')
         key = "%s,%s" % (feature, value)
         probs[key] = (float(prob_click), float(prob_no_click))
     return probs
@@ -68,19 +68,19 @@ prob_dict = read_probs()
 # Reading validation / test lines
 for line in sys.stdin:
     line = line.strip()
-    fields = line.split()
+    fields = line.split('\t')
 
     # Temporary dictionary (per instance) mapping feature_name to feature_value for that instance
     features_dict = {}
 
     i = 0
     while i < len(fields)-2:
-        features_dict[fields[i]] = fields[i+1]
+        features_dict[fields[i+1]] = fields[i]
         i += 2
     clicks, impressions = fields[i], fields[i+1]
 
     prob_value_given_click = 1.0
-    prob_value_given_no_click = 1.
+    prob_value_given_no_click = 1.0
 
     for feature_name in features_dict.keys():
         prob_value_given_click *= get_prob_from_dict(feature_name, features_dict[feature_name])[0]

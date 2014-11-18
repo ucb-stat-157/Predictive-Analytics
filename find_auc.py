@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # TEAM 11: PREDICTIVE ANALYTICS
-# BY: MELANIE HAN ZHAO
+# AUTHOR: MELANIE HAN ZHAO
 
 
 """
