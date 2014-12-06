@@ -5,7 +5,7 @@ Team 11: David San Juan, Jessica Li, Melanie Zhao, Michael Raftery
 
 # Aggregating Data
 
-Acquire the training, validation, and testing sets from bcourses.
+Acquire the training, validation, and testing sets from https://www.kddcup2012.org/c/kddcup2012-track2. For Stat 157, the data was in shared folder of Amazon Web Service.
 
 To aggregate data locally, have the 'features_lib.py' and 'userid_profile.py' files in the same directory as the training, test, and validation sets that you are woking in. The 'feautures_lib.py' file can be found on GitHub. The 'userid_profile.py' file involves a bit of computation. The userid_profile.txt file can be found under the S3 shared folder. After downloading, follow the steps provided on the final report to convert userid_profile.txt into python script userid_profile.py. You will also need the MapReduce files which are all on Github.
 
@@ -27,9 +27,9 @@ The Python implementation of Naive Bayes comes with 3 Python script files: compu
 # Calculating AUC
 For Naive Bayes AUC calculations, the script find_auc.py uses the output of naivebayes_mapper.py to output an AUC score.
 
-The R code for logistic regression model, uses the pROC package
+The R code for logistic regression model, uses the pROC package, which requires the format probability and binary click.
 
 # Other Models
-For Logistic Regression, only a small amount of training was able to be run in R.
+For Logistic Regression only a small amount of training was able to be run in R.
 When using the same four demographic and screen location features AUC on small validation is 0.5762
 Expanding the small model to include adid and advid restricted to 50, the AUC improves to 0.6197
