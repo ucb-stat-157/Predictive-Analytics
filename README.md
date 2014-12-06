@@ -4,8 +4,6 @@ Predictive-Analytics
 Team 11: David San Juan, Jessica Li, Melanie Zhao, Michael Raftery
 
 # Aggregating Data
-MapReduce files to aggregate the click and impression conditioned on selected demographic, position, and depth features.
-The output are the progress train and test files.
 
 Aquire the training, validation, and testing sets from bcourses.
 
