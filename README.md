@@ -15,7 +15,7 @@ To aggregate the data from the training set you need pass the set into the train
 
 To aggregate the data from the validation and testing sets you need to pass the sets into the test_mapper and test_reducer files.
 
-These outputed formats will be the input to our models.
+These formats outputted by the Reducers will be the input to our models.
 
 # Naive Bayes Classifier
 The Naive Bayes Python Implementation has another map reduce that computes probabilities.
