@@ -29,13 +29,13 @@ For Naive Bayes AUC calculations, the script find_auc.py uses the output of naiv
 The R code for logistic regression model, uses the pROC package, which requires the format probability and binary click.
 
 # Other Models
-For Logistic Regression only a small amount of training was able to be run in R. The small training is AWS validation part.00000.
+For Logistic Regression only a small amount of training was able to be run in R. The small training is AWS validation part.00000, which gets called validation micro in the R code.
+The glm package is able to use the grouped data format that the training given.
 
 Three functions from Professor to help logistic regression run.
 reduceFactorLevels: recodes factors based only on the top ordered impression. 
 matchFactorLevels: makes the factors kept between data groups the same
-expandRow: since the data is in grouped form (clicks not binary)
-the expand makes the click become binary in each row up to the amount of impressions.
+expandRow: the expand makes the click become binary in each row up to the amount of impressions.
 
 R package ff and ffbase were used to handle big data. Merging userid file and training is used in R code.
 
