@@ -26,10 +26,16 @@ The Python implementation of Naive Bayes comes with 3 Python script files: compu
 
 # Calculating AUC
 For Naive Bayes AUC calculations, the script find_auc.py uses the output of naivebayes_mapper.py to output an AUC score.
-
 The R code for logistic regression model, uses the pROC package, which requires the format probability and binary click.
 
 # Other Models
-For Logistic Regression only a small amount of training was able to be run in R.
-When using the same four demographic and screen location features AUC on small validation is 0.5762
-Expanding the small model to include adid and advid restricted to 50, the AUC improves to 0.6197
+For Logistic Regression only a small amount of training was able to be run in R. The small training is AWS validation part.00000.
+
+Three functions from Professor to help logistic regression run.
+reduceFactorLevels: recodes factors based only on the top ordered impression. 
+matchFactorLevels: makes the factors kept between data groups the same
+expandRow: since the data is in grouped form (clicks not binary)
+the expand makes the click become binary in each row up to the amount of impressions.
+
+R package ff and ffbase were used to handle big data. Merging userid file and training is used in R code.
+
