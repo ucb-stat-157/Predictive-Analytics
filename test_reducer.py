@@ -9,6 +9,8 @@ import sys
 
 current_value1 = None
 current_value2 = None
+current_feature1 = None
+current_feature2 = None
 current_click = 0
 current_impression = 0
 
@@ -42,10 +44,12 @@ for line in sys.stdin:
         current_impression = imp
         current_value1 = value1
         current_value2 = value2
+        current_feature1 = feature1
+        current_feature2 = feature2
 
 # do not forget to output the last user if needed!
 if current_value1 == value1 and current_value2 == value2:
     # we use this to ignore lines where the user information is unknown
     if current_value1 != 'unknown':
-        print '%s\t%s\t%s\t%s\t%s\t%s' % (current_value1, feature1, current_value2,\
-                                        feature2, current_click, current_impression)
+        print '%s\t%s\t%s\t%s\t%s\t%s' % (current_value1, current_feature1, current_value2,\
+                                        current_feature2, current_click, current_impression)
