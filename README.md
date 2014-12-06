@@ -7,15 +7,15 @@ Team 11: David San Juan, Jessica Li, Melanie Zhao, Michael Raftery
 
 Aquire the training, validation, and testing sets from bcourses.
 
-To run it locally make sure you have the 'features_lib.py' and 'userid_profile.py' files in the same directory as the training, test, and validation sets that you are woking in. The 'feautures_lib.py' file can be found on GitHub. The 'userid_profile.py' file involves a bit of computation. The userid_profile.txt file can be found under the S3 shared folder. When downloaded one can follow the steps provided on the final report to convert it into a python script. 
+To run it locally make sure you have the 'features_lib.py' and 'userid_profile.py' files in the same directory as the training, test, and validation sets that you are woking in. The 'feautures_lib.py' file can be found on GitHub. The 'userid_profile.py' file involves a bit of computation. The userid_profile.txt file can be found under the S3 shared folder. When downloaded one can follow the steps provided on the final report to convert it into a python script. You will also need the MapReducer files which are all on Github.
 
-The next step is to aggregate the data so that the training, validation, and test sets can be run on our models. Each set Requires a different input format.
+The next step is to aggregate the data from the training, validation, and test sets so that the probabilities can be computed by our models. Each set Requires a different input format.
 
-To run the training set on the Naive Bayes model you need to pass the set into the train_mapper and train_reducer files.
+To aggregate the data from the training set you need pass the set into the train_mapper and train_reducer files.
 
-To run the validation set and testing sets on the Naive Bayes model you need to pass the set into the test_mapper and test_reducer files.
+To aggregate the data from the validation and testing sets you need to pass the sets into the test_mapper and test_reducer files.
 
-These outputed formats will be the input to the Naive Bayes model. The same outputs will also be used for our other models.
+These outputed formats will be the input to our models.
 
 # Naive Bayes Classifier
 The Naive Bayes Python Implementation has another map reduce that computes probabilities.
