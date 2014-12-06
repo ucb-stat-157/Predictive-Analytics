@@ -1,4 +1,6 @@
 # Author: Michael Raftery
+# SEE PREVIOUS CODE FIRST
+# This code does not have many comments, as the procedure is same as other R coding
 # This procedure follows the Professor's code example without the factor reduction in adid/advid
 
 aggtrain <- read.delim("~/Desktop/progress_train_data.txt", header=FALSE)

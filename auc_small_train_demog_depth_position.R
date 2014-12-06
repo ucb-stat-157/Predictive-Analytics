@@ -1,5 +1,9 @@
-require(ff);require(ffbase); require(AUC); require(ROCR)
+# Author: Michael Raftery
+# The procedure and idea for factor reduce and expand row are from Prof's sample code
 
+require(ff);require(ffbase); require(AUC); require(ROCR)
+# userid.ff <- read.table.ffdf(file="~/1 Statistics/157/HW4/userid_profile.txt")
+#save.ffdf(userid.ff, dir="~/1 Statistics/157/PROJECT TEAM/userid")
 load.ffdf("~/1 Statistics/157/PROJECT/userid")
 
 # validation micro is the first part of validation20, it is near a million rows
@@ -37,15 +41,14 @@ validation$prob <- predict(model.one.glm, newdata=validation, type="response")
 #warning output: prediction from a rank-deficient fit, so may be imperfect model
 
 ## ROC analysis
-# Getting a vector of probabilities and responses
-
+# This expand row makes click binary for each row by expanding the grouped data
 expandRow <- function(x) {
   prob <- rep(x$prob, x$impression)
   response <- c(rep(1, x$click), rep(0, x$no_clicks))
   data.frame(prob=prob, response=response)
 }
 
-# This is really slow
+#  not fast with large data
 val_list <- lapply(1:nrow(validation), function(x) expandRow(validation[x,]))
 valid_expand <- do.call(rbind, val_list)
 
@@ -56,9 +59,12 @@ valid_expand <- do.call(rbind, val_list)
 install.packages("pROC")
 library("pROC")
 auc(valid_expand$response, valid_expand$prob)
-### Area under the curve: 0.5762    THIS IS RUN ON SMALL TRAINING OF 800,000 and predicted on validation of size 104936
+### Area under the curve: 0.5762    
+# This is on small trainging size 800,000 and predicted on validation of size 104936
 
 ###########################################################################
+###########################################################################
+# EXPAND GLM model
 #  Now we include ad and advid, EXPAND GLM model
 # reduce the factors of ad advid, because memory and efficiency
 
@@ -102,4 +108,37 @@ require(ROCR)
 pred <- prediction(valid_expand$prob, valid_expand$response)
 perf <- performance(pred,"tpr","fpr")
 plot(perf, main="ROC curve for logistic reg model \n with 50 factor adid and advid")
-lines
+
+################################################
+######   BASIC MODEL PERFORMANCE ON TEST #######
+################################################
+
+# To see how model performs on test set
+require(ff);require(ffbase)
+#test <- read.table.ffdf(file="~/1 Statistics/157/PROJECT/userid/test.txt")
+load.ffdf("~/1 Statistics/157/PROJECT/test")
+
+colnames(test)=c("ratio","type","Click","Impression","DisplayURL","AdID",
+                "AdvertiserID","Depth", "Position","QueryID",
+                "KeywordID","TitleID","DescriptionID","UserID")
+test.data=test[,c("Click","Impression","DisplayURL","AdID",
+              "AdvertiserID","Depth", "Position","QueryID",
+              "KeywordID","TitleID","DescriptionID","UserID")]
+
+colnames(test.data)=c(tolower(colnames(test.data)))
+colnames(userid.ff)=c("userid","gender", "age")
+
+small.test=test.data[1:200000,]
+small.test.w.user=merge(small.test,userid.ff,"userid",all.x = TRUE)
+
+small.test.w.user$no_clicks = small.test.w.user$impression - small.test.w.user$click
+small.test.w.user$prob <- predict(model.one.glm,
+                                  newdata=small.test.w.user,
+                                  type="response")
+
+val_list <- lapply(1:nrow(small.test.w.user),
+                   function(x) expandRow(small.test.w.user[x,]))
+
+valid_expand <- do.call(rbind, val_list)
+auc(valid_expand$response, valid_expand$prob)
+# Area under the curve: 0.5973
