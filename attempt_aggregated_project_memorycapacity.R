@@ -1,8 +1,8 @@
 # Author: Michael Raftery
 # This procedure follows the Professor's code example without the factor reduction in adid/advid
 
-progress_test_data <- read.delim("~/Desktop/progress_test_data.txt", header=FALSE)
-progress_train_data <- read.delim("~/Desktop/progress_train_data.txt", header=FALSE)
+aggtrain <- read.delim("~/Desktop/progress_train_data.txt", header=FALSE)
+aggtest <- read.delim("~/Desktop/progress_test_data.txt", header=FALSE)
 
 colnames(aggtrain)=c("feature","name","click", "impression")
 aggtrain$no_clicks=aggtrain$impression-aggtrain$click
