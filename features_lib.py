@@ -9,18 +9,6 @@ sys.path.append(os.path.dirname(__file__))
 from userid_profile import user_data
 user_data = user_data.split('\n')[1:-1]
 
-'''These lines will be implemented for the final project when we 
-incorporate the Search Relevance Feature'''
-#from queryid_tokensid.py import query_data
-#from titleid_tokensid.py import title_data
-#from purchasedkeywordid_tokensid.py import keyword_data
-#from descriptionid_tokensid.py import description_data
-
-#query_data = query_data.split('\n')[1:-1]
-#title_data = title_data.split('\n')[1:-1]
-#keyword_data = keyword_data.split('\n')[1:-1]
-#description_data = description_data.split('\n')[1:-1]
-
 'User Demographic Feature'
 # Created a dictionary outside of the function so it would not have be
 # be repeatedly called upon
@@ -87,49 +75,3 @@ def get_placement(depth, position):
     except:
         return None
 
-
-
-'Search Relevance Feature'
-
-def get_tokens(id_val, filename):
-    """ Given (ID, filename), return the list of tokens associated with it"""
-    id_token_list = filename
-
-    for instance in id_token_list:
-        #Split instances into ID and tokens
-        temp = instance[0].split("\t")
-        #Search to see if ID matches
-        if id_val == temp[0]:
-            #then splitting the tokens into a list of individual tokens
-            ans = temp[1].split("|")
-    return ans
-
-def get_all_ad_tokens(ad_id):
-    """Given an ad ID, find the combined list of all tokens in its
-    keyword, title and description"""
-
-    instance_list = instances
-    ans = []
-    #go through each instance within the file
-    for instance in instance_list:
-        #split each line into it's individual fields
-        temp = instance.split("\t")
-        #look up the ad_id in the other files to get keyword, title, description
-        #get tokens for each of the respective id's
-        if ad_id == temp[3]:
-            ans.extend(get_tokens(temp[8], keyword_data))
-            ans.extend(get_tokens(temp[9], title_data))
-            ans.extend(get_tokens(temp[10], description_data))
-    return ans
-
-def get_similarity_index(query_id, ad_id):
-    """Given a query_id, adID find the SimilarityIndex"""
-    #getting the query tokens and then keyword/title/description tokens
-    query_tok = get_tokens(query_id, query_data)
-    others_tok = get_all_ad_tokens(ad_id)
-    #created a counter to check how many times query tokens show up
-    count = 0
-    for query in query_tok:
-        if query in others_tok:
-            count += 1
-    return count/float(len(query_tok))
