@@ -12,6 +12,7 @@ The Naive Bayes Python Implementation has another map reduce that computes proba
 
 # Calculating AUC
 For Naive Bayes AUC calculations, the script find_auc.py uses the output of probabilities.
+The R code for logistic regression model, uses the pROC package
 
 # Other Models
 For Logistic Regression, only a small amount of training was able to be run in R.
